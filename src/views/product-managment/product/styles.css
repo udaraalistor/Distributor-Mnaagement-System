@@ -1,0 +1,8 @@
+.cus-btn {
+  background: red!important;
+  color: white!important;
+}
+.cus-btn:hover,.cus-btn:active,.cus-btn:focus {
+  background: red!important;
+  color: white !important;;
+}

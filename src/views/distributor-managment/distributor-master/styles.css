@@ -1,0 +1,16 @@
+.marginTop{
+    margin-top: 21px;
+  }
+  .addFloorBtn{
+    height: 40px!important;
+    width: 100%;
+  }
+  .cus-btn {
+    background: red!important;
+    color: white!important;
+  }
+  .cus-btn:hover,.cus-btn:active,.cus-btn:focus {
+    background: red!important;
+    color: white !important;;
+  }
+  

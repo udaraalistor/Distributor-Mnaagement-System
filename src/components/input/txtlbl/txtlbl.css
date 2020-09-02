@@ -1,0 +1,60 @@
+
+ .ui.tag.label {
+    background: #d2d2d2!important;
+  }
+  
+  .ui button {
+    background: #d2d2d2;
+  }
+  
+  .ui.tag.label {
+    /*background: #4f97bf!important;*/
+    /*color: white;*/
+  }
+  .ui.button {
+    background: #53bd52;
+    color: white ;
+  }
+  
+  .ui.button:hover {
+    background: #00bd1f ;
+    color: white ;
+  }
+  
+  .ui.button:active {
+    color: white ;
+  }
+  
+  
+  .ui.label {
+    /*background: #4f97bf!important;*/
+    /*color: white;*/
+    border-left: 1px solid rgba(34,36,38,.15)!important;
+    border-top: 1px solid rgba(34,36,38,.15)!important;
+    border-bottom: 1px solid rgba(34,36,38,.15)!important;
+    background: #f0f3f5!important;
+    /*color: #6b6b6b;*/
+    color: balck;
+    line-height: 1.7!important;
+    font-size: 12px!important;
+    /*width: 110px;*/
+  }
+  
+  .ui.input {
+    font-size: 14px;
+  }
+  
+  .ui.input>input {
+    width: 100%!important;
+    flex: auto!important;
+  }
+  
+  .ui.dropdown {
+    /*width: 100%!important;*/
+    flex: auto!important;
+  }
+  
+  .ui.dropdown>.text {
+    width: 100%!important;
+  }
+  

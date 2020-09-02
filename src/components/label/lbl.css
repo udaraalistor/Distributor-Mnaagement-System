@@ -1,0 +1,14 @@
+.label-style {
+    display: block;
+    margin: 0 0 5px 0;
+    color: rgba(0,0,0,.87);
+    font-size: .92857143em;
+    font-weight: 700;
+    text-transform: none;
+    margin-top: 10px;
+  }
+
+.required-field-input {
+  color: red;
+}
+  
