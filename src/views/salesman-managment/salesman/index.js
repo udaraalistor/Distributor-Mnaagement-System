@@ -9,6 +9,7 @@ import DrpDwn from "../../../components/dropdown/index";
 import Lbl from "../../../components/label/index";
 import Update from '../../salesman-managment/update/index';
 import * as DropDownConst from '../../../store/Reducer/DropDownConst'
+import cookie from 'react-cookies';
 
 class App extends Component {
     state = {
@@ -92,7 +93,8 @@ class App extends Component {
         distributor_list: [],
         disid: "",
         disname: "",
-        status: "Active"
+        status: "Active",
+        content: false
     }
 
     updateMember = (obj) => {
@@ -169,6 +171,23 @@ class App extends Component {
         })
     }
 
+    componentDidMount() {
+
+        let userrole = cookie.load('USERROLE');
+
+        if (userrole === "ADMIN") {
+            this.setState({
+                content: true
+            })
+
+        } else {
+            this.setState({
+                content: false
+            })
+
+        }
+    }
+
 
 
     render() {
@@ -206,15 +225,18 @@ class App extends Component {
                         <Update data={this.state.memberdata} refreshData={this.clearFeilds} closeModal={() => this.setState({ isUpdate: false })} /> : null
                 }
 
-                <Card>
-                    <CardHeader>Salesman Managment</CardHeader>
-                    <CardBody>
-                        <Row>
-                            <Col xs="12" lg={"12"} md={"12"} className={"padd_grap"}>
+                {
+                    this.state.content ?
+
+                        <Card>
+                            <CardHeader>Salesman Managment</CardHeader>
+                            <CardBody>
                                 <Row>
-                                    <Col lg={6}>
-                                        <Form>
-                                            {/* <Col className={"none-padding"} lg={12}>
+                                    <Col xs="12" lg={"12"} md={"12"} className={"padd_grap"}>
+                                        <Row>
+                                            <Col lg={6}>
+                                                <Form>
+                                                    {/* <Col className={"none-padding"} lg={12}>
                                                 <Lbl required>Salesman ID</Lbl>
                                                 <LabelInput
                                                     placeholder={"Salesman ID"}
@@ -223,93 +245,96 @@ class App extends Component {
                                                 />
                                             </Col> */}
 
-                                            <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>Salesman Name</Lbl>
-                                                <LabelInput
-                                                    placeholder={"Salesman Name"}
-                                                    value={this.state.salesmanname}
-                                                    onChange={this.handleChange('salesmanname')}
-                                                />
-                                            </Col>
-
-                                            <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>Contact</Lbl>
-                                                <LabelInput
-                                                    placeholder={"Contact"}
-                                                    value={this.state.contact}
-                                                    onChange={this.handleChange('contact')}
-                                                />
-                                            </Col>
-
-                                            <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>E-mail</Lbl>
-                                                <LabelInput
-                                                    placeholder={"E-mail"}
-                                                    value={this.state.email}
-                                                    onChange={this.handleChange('email')}
-                                                />
-                                            </Col>
-
-                                        </Form>
-                                    </Col>
-
-                                    <Col lg={6}>
-                                        <Form>
-                                            <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>Distributor ID</Lbl>
-                                                <DrpDwn
-                                                    multiple
-                                                    placeholder={"Distributor ID"}
-                                                    options={this.state.distributor_list}
-                                                    value={this.state.disid}
-                                                    onChange={this.dropDownChange('disid')}
-                                                />
-
-                                                <DrpDwn
-                                                    multiple
-                                                    placeholder={"Distributor Name"}
-                                                    options={DropDownConst.status}
-                                                    value={this.state.disname}
-                                                    onChange={this.dropDownChange('disname')}
-                                                />
-                                            </Col>
-
-                                            <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>Status</Lbl>
-                                                <DrpDwn
-                                                    multiple
-                                                    placeholder={"Status"}
-                                                    options={DropDownConst.salesmanstatus}
-                                                    value={this.state.status}
-                                                    onChange={this.dropDownChange('status')}
-                                                />
-                                            </Col>
-                                        </Form>
-
-                                        <Row>
-                                            <Col className="marginTop" xs={12} sm={12} md={12} lg={12}>
-                                                <center>
-                                                    <Button
-                                                        className="addBtn"
-                                                        color="primary"
-                                                        onClick={this.sendToBackEnd}
-                                                    >Add Salesman</Button>
-
-                                                    <Tooltip placement="topLeft" title="Clear input fields">
-                                                        <SementicBtn circular icon='refresh'
-                                                            onClick={this.clearFeilds}
+                                                    <Col className={"none-padding"} lg={12}>
+                                                        <Lbl required>Salesman Name</Lbl>
+                                                        <LabelInput
+                                                            placeholder={"Salesman Name"}
+                                                            value={this.state.salesmanname}
+                                                            onChange={this.handleChange('salesmanname')}
                                                         />
-                                                    </Tooltip>
+                                                    </Col>
 
-                                                </center>
+                                                    <Col className={"none-padding"} lg={12}>
+                                                        <Lbl required>Contact</Lbl>
+                                                        <LabelInput
+                                                            placeholder={"Contact"}
+                                                            value={this.state.contact}
+                                                            onChange={this.handleChange('contact')}
+                                                        />
+                                                    </Col>
+
+                                                    <Col className={"none-padding"} lg={12}>
+                                                        <Lbl required>E-mail</Lbl>
+                                                        <LabelInput
+                                                            placeholder={"E-mail"}
+                                                            value={this.state.email}
+                                                            onChange={this.handleChange('email')}
+                                                        />
+                                                    </Col>
+
+                                                </Form>
+                                            </Col>
+
+                                            <Col lg={6}>
+                                                <Form>
+                                                    <Col className={"none-padding"} lg={12}>
+                                                        <Lbl required>Distributor ID</Lbl>
+                                                        <DrpDwn
+                                                            multiple
+                                                            placeholder={"Distributor ID"}
+                                                            options={this.state.distributor_list}
+                                                            value={this.state.disid}
+                                                            onChange={this.dropDownChange('disid')}
+                                                        />
+
+                                                        <DrpDwn
+                                                            multiple
+                                                            placeholder={"Distributor Name"}
+                                                            options={DropDownConst.status}
+                                                            value={this.state.disname}
+                                                            onChange={this.dropDownChange('disname')}
+                                                        />
+                                                    </Col>
+
+                                                    <Col className={"none-padding"} lg={12}>
+                                                        <Lbl required>Status</Lbl>
+                                                        <DrpDwn
+                                                            multiple
+                                                            placeholder={"Status"}
+                                                            options={DropDownConst.salesmanstatus}
+                                                            value={this.state.status}
+                                                            onChange={this.dropDownChange('status')}
+                                                        />
+                                                    </Col>
+                                                </Form>
+
+                                                <Row>
+                                                    <Col className="marginTop" xs={12} sm={12} md={12} lg={12}>
+                                                        <center>
+                                                            <Button
+                                                                className="addBtn"
+                                                                color="primary"
+                                                                onClick={this.sendToBackEnd}
+                                                            >Add Salesman</Button>
+
+                                                            <Tooltip placement="topLeft" title="Clear input fields">
+                                                                <SementicBtn circular icon='refresh'
+                                                                    onClick={this.clearFeilds}
+                                                                />
+                                                            </Tooltip>
+
+                                                        </center>
+                                                    </Col>
+                                                </Row>
                                             </Col>
                                         </Row>
                                     </Col>
                                 </Row>
-                            </Col>
-                        </Row>
-                    </CardBody>
-                </Card>
+                            </CardBody>
+                        </Card>
+
+                        : null
+                }
 
                 <Card>
                     <CardHeader>All Salesman Details</CardHeader>

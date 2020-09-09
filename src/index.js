@@ -16,6 +16,9 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'semantic-ui-css/semantic.min.css';
+import './react-antd.css'
+import './animate.css'
+import './index.css';
 
 React.icons = icons
 

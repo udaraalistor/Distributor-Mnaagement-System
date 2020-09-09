@@ -8,8 +8,16 @@ import { Spin, Tooltip, Icon as AntdIcon } from "antd";
 import DrpDwn from "../../../components/dropdown/index";
 import Lbl from "../../../components/label/index";
 import Update from '../update/index';
+import cookie from 'react-cookies';
 
 class App extends Component {
+
+    constructor(props) {
+        super(props)
+
+
+    }
+
     state = {
         tblcolumns: [
 
@@ -58,7 +66,8 @@ class App extends Component {
         userid: "",
         username: "",
         password: "",
-        confirmpassword: ""
+        confirmpassword: "",
+        
 
     }
 
@@ -78,12 +87,14 @@ class App extends Component {
                 [name]: value
             })
 
-        } else if (name === "userid") {
-            this.setState({
-                [name]: value
-            })
+        }
+        // else if (name === "userid") {
+        //     this.setState({
+        //         [name]: value
+        //     })
 
-        } else if (name === "username") {
+        // }
+        else if (name === "username") {
             this.setState({
                 [name]: value
             })
@@ -103,10 +114,10 @@ class App extends Component {
 
     sendToBackEnd = () => {
 
-        const { disid, userid, username, password } = this.state;
+        const { disid, username, password } = this.state;
         const obj = {
             "disid": disid,
-            "userid": userid,
+            // "userid": userid,
             "username": username,
             "password": password,
         }
@@ -123,6 +134,8 @@ class App extends Component {
             confirmpassword: ""
         })
     }
+
+    
 
 
 
@@ -158,24 +171,27 @@ class App extends Component {
                         <Update data={this.state.memberdata} refreshData={this.clearFeilds} closeModal={() => this.setState({ isUpdate: false })} /> : null
                 }
 
-                <Card>
-                    <CardHeader>User Managment</CardHeader>
-                    <CardBody>
-                        <Row>
-                            <Col xs="12" lg={"12"} md={"12"} className={"padd_grap"}>
-                                <Row>
-                                    <Col lg={6}>
-                                        <Form>
-                                            <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>Distributor ID</Lbl>
-                                                <LabelInput
-                                                    placeholder={"Distributor ID"}
-                                                    value={this.state.disid}
-                                                    onChange={this.handleChange('disid')
-                                                    }
-                                                />
-                                            </Col>
+               
 
+
+                        <Card>
+                            <CardHeader>User Managment</CardHeader>
+                            <CardBody>
+                                <Row>
+                                    <Col xs="12" lg={"12"} md={"12"} className={"padd_grap"}>
+                                        <Row>
+                                            <Col lg={6}>
+                                                <Form>
+                                                    <Col className={"none-padding"} lg={12}>
+                                                        <Lbl required>Distributor ID</Lbl>
+                                                        <LabelInput
+                                                            placeholder={"Distributor ID"}
+                                                            value={this.state.disid}
+                                                            onChange={this.handleChange('disid')
+                                                            }
+                                                        />
+                                                    </Col>
+                                                    {/* 
                                             <Col className={"none-padding"} lg={12}>
                                                 <Lbl required>User ID</Lbl>
                                                 <LabelInput
@@ -184,69 +200,70 @@ class App extends Component {
                                                     onChange={this.handleChange('userid')
                                                     }
                                                 />
-                                            </Col>
+                                            </Col> */}
 
-                                            <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>User Name</Lbl>
-                                                <LabelInput
-                                                    placeholder={"Name"}
-                                                    value={this.state.username}
-                                                    onChange={this.handleChange('username')}
-                                                />
-                                            </Col>
-
-
-                                        </Form>
-                                    </Col>
-
-                                    <Col lg={6}>
-                                        <Form>
-
-                                            <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>Password</Lbl>
-                                                <LabelInput
-                                                    placeholder={"Password"}
-                                                    value={this.state.password}
-                                                    onChange={this.handleChange('password')
-                                                    }
-                                                />
-                                            </Col>
-
-                                            <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>Confirm Password</Lbl>
-                                                <LabelInput
-                                                    placeholder={"Confirm Password"}
-                                                    value={this.state.confirmpassword}
-                                                    onChange={this.handleChange('confirmpassword')}
-                                                />
-                                            </Col>
-
-                                        </Form>
-
-                                        <Row>
-                                            <Col className="marginTop" xs={12} sm={12} md={12} lg={12}>
-                                                <center>
-                                                    <Button
-                                                        className="addBtn"
-                                                        color="primary"
-                                                        onClick={this.sendToBackEnd}
-                                                    >Add User</Button>
-
-                                                    <Tooltip placement="topLeft" title="Clear input fields">
-                                                        <SementicBtn circular icon='refresh'
-                                                            onClick={this.clearFeilds}
+                                                    <Col className={"none-padding"} lg={12}>
+                                                        <Lbl required>User Name</Lbl>
+                                                        <LabelInput
+                                                            placeholder={"Name"}
+                                                            value={this.state.username}
+                                                            onChange={this.handleChange('username')}
                                                         />
-                                                    </Tooltip>
+                                                    </Col>
 
-                                                </center>
+
+                                                </Form>
+                                            </Col>
+
+                                            <Col lg={6}>
+                                                <Form>
+
+                                                    <Col className={"none-padding"} lg={12}>
+                                                        <Lbl required>Password</Lbl>
+                                                        <LabelInput
+                                                            placeholder={"Password"}
+                                                            value={this.state.password}
+                                                            onChange={this.handleChange('password')
+                                                            }
+                                                        />
+                                                    </Col>
+
+                                                    <Col className={"none-padding"} lg={12}>
+                                                        <Lbl required>Confirm Password</Lbl>
+                                                        <LabelInput
+                                                            placeholder={"Confirm Password"}
+                                                            value={this.state.confirmpassword}
+                                                            onChange={this.handleChange('confirmpassword')}
+                                                        />
+                                                    </Col>
+
+                                                </Form>
+
+                                                <Row>
+                                                    <Col className="marginTop" xs={12} sm={12} md={12} lg={12}>
+                                                        <center>
+                                                            <Button
+                                                                className="addBtn"
+                                                                color="primary"
+                                                                onClick={this.sendToBackEnd}
+                                                            >Add User</Button>
+
+                                                            <Tooltip placement="topLeft" title="Clear input fields">
+                                                                <SementicBtn circular icon='refresh'
+                                                                    onClick={this.clearFeilds}
+                                                                />
+                                                            </Tooltip>
+
+                                                        </center>
+                                                    </Col>
+                                                </Row>
                                             </Col>
                                         </Row>
                                     </Col>
                                 </Row>
-                            </Col>
-                        </Row>
-                    </CardBody>
-                </Card>
+                            </CardBody>
+                        </Card>
+                      
 
                 <Card>
                     <CardHeader>All Users</CardHeader>

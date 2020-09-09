@@ -1,17 +1,18 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './styles.css';
-import {Button, Card, CardBody, CardHeader, Col, Row} from "reactstrap";
-import {Button as SementicBtn, Form, Input} from "semantic-ui-react";
+import { Button, Card, CardBody, CardHeader, Col, Row } from "reactstrap";
+import { Button as SementicBtn, Form, Input } from "semantic-ui-react";
 import Lbl from "../../../components/label";
 import LabelInput from "../../../components/input/txtlbl";
 import DrpDwn from "../../../components/dropdown";
-import {Tooltip} from "antd";
-import {MDBDataTable} from "mdbreact";
+import { Tooltip } from "antd";
+import { MDBDataTable } from "mdbreact";
 import Update from "../product/update/"
 import * as DropDownConst from '../../../store/Reducer/DropDownConst'
+import cookie from 'react-cookies';
 
 
-const tblcolumns= [
+const tblcolumns = [
   {
     label: 'Product Code',
     field: 'code',
@@ -49,7 +50,7 @@ const tblcolumns= [
   }
 ];
 
-const tbldata= [
+const tbldata = [
   {
     code: "C001",
     name: "Test",
@@ -101,16 +102,17 @@ class Index extends Component {
     consumerPrice: "",
     isUpdate: false,
     productData: "",
+    content: false
   };
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.loadProductTable();
   }
 
 
   // Load Product Table
-  loadProductTable(){
+  loadProductTable() {
     const rows = [];
     if (tbldata.length !== 0) {
       tbldata.map((row, index) => {
@@ -121,14 +123,14 @@ class Index extends Component {
             product_category: row.product_category,
             tax: row.tax,
             primary_price: row.primary_price,
-            retailer_price: row.retailer_price ,
+            retailer_price: row.retailer_price,
             action:
               <div>
                 <SementicBtn circular icon='edit'
-                             onClick={() => {this.updateProduct(row)}}
+                  onClick={() => { this.updateProduct(row) }}
                 />
                 <SementicBtn className="cus-btn" circular icon='trash alternate'
-                  //  onClick={() => this.deleteReception(row.userId,row.userName)}
+                //  onClick={() => this.deleteReception(row.userId,row.userName)}
                 />
               </div>
           }
@@ -166,7 +168,7 @@ class Index extends Component {
   // Add Product
   addProduct = () => {
 
-    const {  name, code, description, tax, product, petailerPrice, status, primaryPrice, consumerPrice } = this.state;
+    const { name, code, description, tax, product, petailerPrice, status, primaryPrice, consumerPrice } = this.state;
     const obj = {
       "code": code,
       "name": name,
@@ -183,160 +185,184 @@ class Index extends Component {
 
   };
 
+
+  componentDidMount() {
+
+    let userrole = cookie.load('USERROLE');
+
+    if (userrole === "ADMIN") {
+      this.setState({
+        content: true
+      })
+
+    } else {
+      this.setState({
+        content: false
+      })
+
+    }
+  }
+
   render() {
     return (
       <div>
         {
           this.state.isUpdate ?
-            <Update data={this.state.productData} closeModal={() => this.setState({ isUpdate: false })}/>
+            <Update data={this.state.productData} closeModal={() => this.setState({ isUpdate: false })} />
             :
             null
         }
-        <Card>
-          <CardHeader>Product</CardHeader>
-          <CardBody>
-            <Row>
-              <Col xs={12} lg={12} md={12} xl={12} className={"padd_grap"}>
+
+        {
+          this.state.content ?
+            <Card>
+              <CardHeader>Product</CardHeader>
+              <CardBody>
                 <Row>
-                  <Col xl={6} lg={6} md={6}>
-                    <Form>
-                      <Col className={"none-padding"} lg={12}>
-                        <Lbl required>Product Code</Lbl>
-                        <LabelInput
-                          placeholder={"Product Code"}
-                          value={this.state.code}
-                          onChange={this.onChangeState('code')}
-                        />
-                      </Col>
-
-                      <Col className={"none-padding"} lg={12}>
-                        <Lbl required>Product Name</Lbl>
-                        <LabelInput
-                          placeholder={"Product Name"}
-                          value={this.state.name}
-                          onChange={this.onChangeState('name')}
-                        />
-                      </Col>
-
-                      <Col className={"none-padding"} lg={12}>
-                        <Lbl required>Description</Lbl>
-                        <LabelInput
-                          placeholder={"Description"}
-                          value={this.state.description}
-                          onChange={this.onChangeState('description')}
-                        />
-
-                      </Col>
-
-                      <Col className={"none-padding"}>
-                        <Lbl required>Tax</Lbl>
-                        <Row>
-                          <Col lg={12} xl={6} md={12} sm={6} xs={12}>
-                            <DrpDwn
-                              multiple
-                              placeholder={"Tax"}
-                              //   options={this.state.branch_list}
-                              //   value={this.state.selected_list}
-                              onChange={this.dropDownChange('tax')}
+                  <Col xs={12} lg={12} md={12} xl={12} className={"padd_grap"}>
+                    <Row>
+                      <Col xl={6} lg={6} md={6}>
+                        <Form>
+                          <Col className={"none-padding"} lg={12}>
+                            <Lbl required>Product Code</Lbl>
+                            <LabelInput
+                              placeholder={"Product Code"}
+                              value={this.state.code}
+                              onChange={this.onChangeState('code')}
                             />
                           </Col>
-                          <Col lg={12} xl={6} md={12} sm={6} xs={12}>
+
+                          <Col className={"none-padding"} lg={12}>
+                            <Lbl required>Product Name</Lbl>
                             <LabelInput
-                              className="mt-1"
-                              placeholder={""}
-                              //   value={this.state.username}
-                              //   onChange={this.handleChange('username')}
+                              placeholder={"Product Name"}
+                              value={this.state.name}
+                              onChange={this.onChangeState('name')}
                             />
+                          </Col>
+
+                          <Col className={"none-padding"} lg={12}>
+                            <Lbl required>Description</Lbl>
+                            <LabelInput
+                              placeholder={"Description"}
+                              value={this.state.description}
+                              onChange={this.onChangeState('description')}
+                            />
+
+                          </Col>
+
+                          <Col className={"none-padding"}>
+                            <Lbl required>Tax</Lbl>
+                            <Row>
+                              <Col lg={12} xl={6} md={12} sm={6} xs={12}>
+                                <DrpDwn
+                                  multiple
+                                  placeholder={"Tax"}
+                                  //   options={this.state.branch_list}
+                                  //   value={this.state.selected_list}
+                                  onChange={this.dropDownChange('tax')}
+                                />
+                              </Col>
+                              <Col lg={12} xl={6} md={12} sm={6} xs={12}>
+                                <LabelInput
+                                  className="mt-1"
+                                  placeholder={""}
+                                //   value={this.state.username}
+                                //   onChange={this.handleChange('username')}
+                                />
+                              </Col>
+                            </Row>
+                          </Col>
+
+                          <Col className={"none-padding"} lg={12}>
+                            <Lbl required>Product Category</Lbl>
+                            <Row>
+                              <Col lg={12} xl={6} md={12} sm={6} xs={12}>
+                                <DrpDwn
+                                  multiple
+                                  placeholder={"Product"}
+                                  //   options={this.state.branch_list}
+                                  //   value={this.state.selected_list}
+                                  onChange={this.dropDownChange('product')}
+                                />
+                              </Col>
+                              <Col lg={12} xl={6} md={12} sm={6} xs={12}>
+                                <LabelInput
+                                  className="mt-1"
+                                  placeholder={""}
+                                //   value={this.state.username}
+                                //   onChange={this.handleChange('username')}
+                                />
+                              </Col>
+                            </Row>
+                          </Col>
+
+                        </Form>
+                      </Col>
+
+                      <Col xl={6} lg={6} md={6}>
+                        <Form>
+
+                          <Col className={"none-padding"} lg={12}>
+                            <Lbl required>Petailer Price</Lbl>
+                            <LabelInput
+                              placeholder={"Petailer Price"}
+                              value={this.state.petailerPrice}
+                              onChange={this.onChangeState('petailerPrice')}
+                            />
+                          </Col>
+
+                          <Col className={"none-padding"} lg={12}>
+                            <Lbl required>Status</Lbl>
+                            <DrpDwn
+                              multiple
+                              placeholder={"Status"}
+                              options={DropDownConst.salesmanstatus}
+                              //   value={this.state.selected_list}
+                              onChange={this.dropDownChange('status')}
+                            />
+                          </Col>
+
+                          <Col className={"none-padding"} lg={12}>
+                            <Lbl required>Primary Price</Lbl>
+                            <LabelInput
+                              placeholder={"Primary Price"}
+                              value={this.state.primaryPrice}
+                              onChange={this.onChangeState('primaryPrice')}
+                            />
+                          </Col>
+
+                          <Col className={"none-padding"} lg={12}>
+                            <Lbl required>Consumer Price</Lbl>
+                            <LabelInput
+                              placeholder={"Consumer Price"}
+                              value={this.state.consumerPrice}
+                              onChange={this.onChangeState('consumerPrice')}
+                            />
+                          </Col>
+
+                        </Form>
+
+                        <Row>
+                          <Col className="marginTop" xs={12} sm={12} md={12} lg={12}>
+                            <center>
+                              <Button
+                                className="addBtn mt-4"
+                                color="primary"
+                                onClick={e => this.addProduct()}
+                              >Add Product</Button>
+                            </center>
                           </Col>
                         </Row>
                       </Col>
-
-                      <Col className={"none-padding"} lg={12}>
-                        <Lbl required>Product Category</Lbl>
-                        <Row>
-                          <Col lg={12} xl={6} md={12} sm={6} xs={12}>
-                            <DrpDwn
-                              multiple
-                              placeholder={"Product"}
-                              //   options={this.state.branch_list}
-                              //   value={this.state.selected_list}
-                                onChange={this.dropDownChange('product')}
-                            />
-                          </Col>
-                          <Col lg={12} xl={6} md={12} sm={6} xs={12}>
-                            <LabelInput
-                              className="mt-1"
-                              placeholder={""}
-                              //   value={this.state.username}
-                              //   onChange={this.handleChange('username')}
-                            />
-                          </Col>
-                        </Row>
-                      </Col>
-
-                    </Form>
-                  </Col>
-
-                  <Col xl={6} lg={6} md={6}>
-                    <Form>
-
-                      <Col className={"none-padding"} lg={12}>
-                        <Lbl required>Petailer Price</Lbl>
-                        <LabelInput
-                          placeholder={"Petailer Price"}
-                            value={this.state.petailerPrice}
-                            onChange={this.onChangeState('petailerPrice')}
-                        />
-                      </Col>
-
-                      <Col className={"none-padding"} lg={12}>
-                        <Lbl required>Status</Lbl>
-                        <DrpDwn
-                          multiple
-                          placeholder={"Status"}
-                            options={DropDownConst.salesmanstatus}
-                          //   value={this.state.selected_list}
-                            onChange={this.dropDownChange('status')}
-                        />
-                      </Col>
-
-                      <Col className={"none-padding"} lg={12}>
-                        <Lbl required>Primary Price</Lbl>
-                        <LabelInput
-                          placeholder={"Primary Price"}
-                            value={this.state.primaryPrice}
-                            onChange={this.onChangeState('primaryPrice')}
-                        />
-                      </Col>
-
-                      <Col className={"none-padding"} lg={12}>
-                        <Lbl required>Consumer Price</Lbl>
-                        <LabelInput
-                          placeholder={"Consumer Price"}
-                            value={this.state.consumerPrice}
-                            onChange={this.onChangeState('consumerPrice')}
-                        />
-                      </Col>
-
-                    </Form>
-
-                      <Row>
-                        <Col className="marginTop" xs={12} sm={12} md={12} lg={12}>
-                          <center>
-                            <Button
-                              className="addBtn mt-4"
-                              color="primary"
-                              onClick={e => this.addProduct()}
-                            >Add Product</Button>
-                          </center>
-                        </Col>
-                      </Row>
+                    </Row>
                   </Col>
                 </Row>
-              </Col>
-            </Row>
-          </CardBody>
-        </Card>
+              </CardBody>
+            </Card>
+            : null
+        }
+        
         <Card>
           <CardHeader>All Members</CardHeader>
           <CardBody>

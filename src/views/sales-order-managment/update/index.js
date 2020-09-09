@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { Col, Row } from "reactstrap";
-import Lbl from "../../../../components/label/index";
+import Lbl from "../../../components/label/index";
 import { MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
-import LabelInput from "../../../../components/input/txtlbl/index";
+import LabelInput from "../../../components/input/txtlbl/index";
 import { Button as SementicBtn, Button, Checkbox, Icon, Input, Form } from "semantic-ui-react";
 import { Spin, Tooltip, Icon as AntdIcon } from "antd";
-import DrpDwn from "../../../../components/dropdown/index";
+import DrpDwn from "../../../components/dropdown/index";
 
 
 class App extends Component {
     state = {
-        code: "",
-        name: "",
-        contact: "",
-        email: ""
+        salesorderid: "",
+        valueexcluded: "",
+        valueincluded: "",
+        remarks: "",
+        status: "Active"
     }
 
     fillData = () => {
@@ -21,25 +22,27 @@ class App extends Component {
         if (data !== null) {
 
             this.setState({
-                code: data.id,
-                name: data.name,
-                contact: data.contact,
-                email: data.email,
+                salesorderid: data.salesorderid,
+                valueexcluded: data.valueexcluded,
+                valueincluded: data.valueincluded,
+                remarks: data.remarks,
+                status: data.status,
             })
         }
     };
 
+    dropDownChange = name => (event, { value }) => {
+        if (name === "status") {
+            this.setState({
+                [name]: value
+            })
+        }
+    };
+
+
     sendToBackEnd = () => {
 
-        const { code, name, contact, email } = this.state;
-        const obj = {
-            "code": code,
-            "name": name,
-            "contact": contact,
-            "email": email
-        }
 
-        console.log(obj);
     }
 
     componentDidMount() {
@@ -49,22 +52,17 @@ class App extends Component {
     handleChange = (name, length) => event => {
         let value = event.target.value;
 
-        if (name === "name") {
+        if (name === "salesorderid") {
             this.setState({
                 [name]: value
             })
 
-        } else if (name === "contact") {
+        } else if (name === "valueexcluded") {
             this.setState({
                 [name]: value
             })
 
-        } else if (name === "email") {
-            this.setState({
-                [name]: value
-            })
-
-        } else if (name === "vatnumber") {
+        } else if (name === "valueincluded") {
             this.setState({
                 [name]: value
             })
@@ -74,13 +72,13 @@ class App extends Component {
 
 
     render() {
-        const { code, name, contact, email } = this.state;
+        const { salesorderid, valueexcluded, valueincluded, status } = this.state;
 
 
         return (
             <div>
                 <MDBModal isOpen={true} toggle={this.toggle} size="xl">
-                    <MDBModalHeader className={"title"} toggle={this.props.closeModal}>Modify Distributor</MDBModalHeader>
+                    <MDBModalHeader className={"title"} toggle={this.props.closeModal}>Modify Sales Order</MDBModalHeader>
                     <MDBModalBody>
                         <Row style={{ padding: '10px' }}>
                             <Col xs="12" lg={"12"} md={"12"} className={"padd_grap"}>
@@ -88,49 +86,51 @@ class App extends Component {
                                     <Col lg={6}>
                                         <Form>
                                             <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>Distributor ID</Lbl>
+                                                <Lbl required>Sales Order ID</Lbl>
                                                 <LabelInput
-                                                    placeholder={"Distributor ID"}
-                                                    value={code}
-                                                    // onChange={false}
+                                                    placeholder={"Sales Order ID"}
+                                                    value={salesorderid}
+                                                  onChange={this.handleChange('salesorderid')}
+                                                />
+                                            </Col>
 
+
+
+                                            <Col className={"none-padding"} lg={12}>
+                                                <Lbl required>Value Excluded</Lbl>
+                                                <LabelInput
+                                                    placeholder={"Value Excluded"}
+                                                    value={valueexcluded}
+                                                    onChange={this.handleChange('valueexcluded')}
                                                 />
                                             </Col>
 
                                             <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>Name</Lbl>
+                                                <Lbl required>Value Included</Lbl>
                                                 <LabelInput
-                                                    placeholder={"Name"}
-                                                    value={name}
-                                                    onChange={this.handleChange('name')}
+                                                    placeholder={"Value Included"}
+                                                    value={valueincluded}
+                                                    onChange={this.handleChange('valueincluded')}
                                                 />
                                             </Col>
-
-
 
                                         </Form>
                                     </Col>
 
                                     <Col lg={6}>
                                         <Form>
-                                            <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>Contact</Lbl>
-                                                <LabelInput
-                                                    placeholder={"Contact"}
-                                                    value={contact}
-                                                    onChange={this.handleChange('contact')}
-                                                />
-                                            </Col>
+                                          
 
                                             <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>E-mail</Lbl>
-                                                <LabelInput
-                                                    placeholder={"E-mail"}
-                                                    value={email}
-                                                    onChange={this.handleChange('email')}
+                                                <Lbl required>Status</Lbl>
+                                                <DrpDwn
+                                                    multiple
+                                                    placeholder={"Status"}
+                                                    // options={DropDownConst.salesmanstatus}
+                                                    value={status}
+                                                    onChange={this.dropDownChange('status')}
                                                 />
                                             </Col>
-
                                         </Form>
 
                                         <center>

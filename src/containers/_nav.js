@@ -5,7 +5,7 @@ export default [
     to: '/dashboard',
     icon: 'cil-speedometer'
   },
-  
+
   {
     _tag: 'CSidebarNavDropdown',
     name: 'Distributor Managment',
@@ -30,10 +30,10 @@ export default [
         name: 'User',
         to: '/UserManagement/user',
       },
-     
+
     ],
   },
-  
+
   {
     _tag: 'CSidebarNavDropdown',
     name: 'Product Management',
@@ -50,7 +50,7 @@ export default [
         name: 'Product Category',
         to: '/productManagement/productCategory',
       },
-     
+
     ],
   },
   {
@@ -64,7 +64,7 @@ export default [
         name: 'Salesman',
         to: '/salesmanManagement/salesman',
       },
-     
+
     ]
   },
   {
@@ -78,7 +78,7 @@ export default [
         name: 'Van Master',
         to: '/vanManagement/van',
       },
-     
+
     ]
   },
   {
@@ -92,22 +92,22 @@ export default [
         name: 'Tax',
         to: '/taxManagement/tax',
       },
-      
+
     ]
   },
   {
     _tag: 'CSidebarNavDropdown',
     name: 'Reports',
-    route: '/notifications',
+    route: '/reports',
     icon: 'cil-bell',
     _children: [
       {
         _tag: 'CSidebarNavItem',
-        name: 'Alerts',
-        to: '/notifications/alerts',
+        name: 'Reports',
+        to: '/reports',
       },
-      
-     
+
+
     ]
   }
 ]

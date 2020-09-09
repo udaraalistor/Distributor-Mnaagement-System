@@ -47,6 +47,10 @@ const productCategory = React.lazy(() => import('./views/product-managment/produ
 const salesman = React.lazy(() => import('./views/salesman-managment/salesman/index'));
 const van = React.lazy(() => import('./views/van-managment/van/index'));
 const tax = React.lazy(() => import('./views/tax-managment/tax/index'));
+const warehousecreate = React.lazy(() => import('./views/inventory-managment/warehouse/index'));
+const warehousetypecreate = React.lazy(() => import('./views/inventory-managment/warehouseType/index'));
+const stock = React.lazy(() => import('./views/inventory-managment/stock/index'));
+const salesorderview = React.lazy(() => import('./views/sales-order-managment/view/index'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -55,10 +59,14 @@ const routes = [
   { path: '/distributorManagment/distributorMaster', name: 'Distributor Master', component: distributorMaster },
   { path: '/UserManagement/user', name: 'User Management', component: user },
   { path: '/productManagement/product', name: 'Product Management', component: product },
-  { path: '/salesmanManagement/salesman', name: 'Salesman Management', component: salesman},
-  { path: '/vanManagement/van', name: 'Van Management', component: van},
-  { path: '/productManagement/productCategory', name: 'Product Category', component: productCategory},
-  { path: '/taxManagement/tax', name: 'Tax Management', component: tax},
+  { path: '/salesmanManagement/salesman', name: 'Salesman Management', component: salesman },
+  { path: '/vanManagement/van', name: 'Van Management', component: van },
+  { path: '/productManagement/productCategory', name: 'Product Category', component: productCategory },
+  { path: '/taxManagement/tax', name: 'Tax Management', component: tax },
+  { path: '/inventoryManagment/warehouseCreate', name: 'Inventory Management', component: warehousecreate },
+  { path: '/inventoryManagment/warehouseTypeCreate', name: 'Inventory Management', component: warehousetypecreate },
+  { path: '/inventoryManagment/stock', name: 'Inventory Management', component: stock },
+  { path: '/purchaseOrderManagment/salesOrderView', name: 'Sales Order Managment', component: salesorderview },
 
 
 

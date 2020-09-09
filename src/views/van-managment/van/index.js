@@ -9,6 +9,7 @@ import DrpDwn from "../../../components/dropdown/index";
 import Lbl from "../../../components/label/index";
 import Update from '../van/update/index';
 import * as DropDownConst from '../../../store/Reducer/DropDownConst'
+import cookie from 'react-cookies';
 
 class App extends Component {
     state = {
@@ -68,7 +69,8 @@ class App extends Component {
         vancode: "",
         vanname: "",
         status: "Active",
-        disid: ""
+        disid: "",
+        content: false
     }
 
     updateMember = (obj) => {
@@ -97,7 +99,20 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.getAllMembers();
+
+        let userrole = cookie.load('USERROLE');
+
+        if (userrole === "ADMIN") {
+            this.setState({
+                content: true
+            })
+
+        } else {
+            this.setState({
+                content: false
+            })
+
+        }
     }
 
     clearFeilds = () => {
@@ -169,15 +184,18 @@ class App extends Component {
                         <Update data={this.state.memberdata} refreshData={this.clearFeilds} closeModal={() => this.setState({ isUpdate: false })} /> : null
                 }
 
-                <Card>
-                    <CardHeader>Van Managment</CardHeader>
-                    <CardBody>
-                        <Row>
-                            <Col xs="12" lg={"12"} md={"12"} className={"padd_grap"}>
+                {
+                    this.state.content ?
+
+                        <Card>
+                            <CardHeader>Van Managment</CardHeader>
+                            <CardBody>
                                 <Row>
-                                    <Col lg={6}>
-                                        <Form>
-                                            {/* <Col className={"none-padding"} lg={12}>
+                                    <Col xs="12" lg={"12"} md={"12"} className={"padd_grap"}>
+                                        <Row>
+                                            <Col lg={6}>
+                                                <Form>
+                                                    {/* <Col className={"none-padding"} lg={12}>
                                                 <Lbl required>Van Code</Lbl>
                                                 <LabelInput
                                                     placeholder={"Van Code"}
@@ -187,66 +205,69 @@ class App extends Component {
                                                 />
                                             </Col> */}
 
-                                            <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>Van Name</Lbl>
-                                                <LabelInput
-                                                    placeholder={"Van Name"}
-                                                    value={this.state.vanname}
-                                                    onChange={this.handleChange('vanname')}
-                                                />
-                                            </Col>
-
-                                            <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>Status</Lbl>
-                                                <DrpDwn
-                                                    multiple
-                                                    placeholder={"Status"}
-                                                    options={DropDownConst.salesmanstatus}
-                                                    value={this.state.status}
-                                                    onChange={this.dropDownChange('status')}
-                                                />
-                                            </Col>
-
-                                        </Form>
-                                    </Col>
-
-                                    <Col lg={6}>
-                                        <Form>
-                                            <Col className={"none-padding"} lg={12}>
-                                                <Lbl required>Distributor ID</Lbl>
-                                                <LabelInput
-                                                    placeholder={"Distributor ID"}
-                                                    value={this.state.disid}
-                                                    onChange={this.handleChange('disid')
-                                                    }
-                                                />
-                                            </Col>
-                                        </Form>
-
-                                        <Row>
-                                            <Col className="marginTop" xs={12} sm={12} md={12} lg={12}>
-                                                <center>
-                                                    <Button
-                                                        className="addBtn"
-                                                        color="primary"
-                                                        onClick={this.sendToBackEnd}
-                                                    >Add Van</Button>
-
-                                                    <Tooltip placement="topLeft" title="Clear input fields">
-                                                        <SementicBtn circular icon='refresh'
-                                                            onClick={this.clearFeilds}
+                                                    <Col className={"none-padding"} lg={12}>
+                                                        <Lbl required>Van Name</Lbl>
+                                                        <LabelInput
+                                                            placeholder={"Van Name"}
+                                                            value={this.state.vanname}
+                                                            onChange={this.handleChange('vanname')}
                                                         />
-                                                    </Tooltip>
+                                                    </Col>
 
-                                                </center>
+                                                    <Col className={"none-padding"} lg={12}>
+                                                        <Lbl required>Status</Lbl>
+                                                        <DrpDwn
+                                                            multiple
+                                                            placeholder={"Status"}
+                                                            options={DropDownConst.salesmanstatus}
+                                                            value={this.state.status}
+                                                            onChange={this.dropDownChange('status')}
+                                                        />
+                                                    </Col>
+
+                                                </Form>
+                                            </Col>
+
+                                            <Col lg={6}>
+                                                <Form>
+                                                    <Col className={"none-padding"} lg={12}>
+                                                        <Lbl required>Distributor ID</Lbl>
+                                                        <LabelInput
+                                                            placeholder={"Distributor ID"}
+                                                            value={this.state.disid}
+                                                            onChange={this.handleChange('disid')
+                                                            }
+                                                        />
+                                                    </Col>
+                                                </Form>
+
+                                                <Row>
+                                                    <Col className="marginTop" xs={12} sm={12} md={12} lg={12}>
+                                                        <center>
+                                                            <Button
+                                                                className="addBtn"
+                                                                color="primary"
+                                                                onClick={this.sendToBackEnd}
+                                                            >Add Van</Button>
+
+                                                            <Tooltip placement="topLeft" title="Clear input fields">
+                                                                <SementicBtn circular icon='refresh'
+                                                                    onClick={this.clearFeilds}
+                                                                />
+                                                            </Tooltip>
+
+                                                        </center>
+                                                    </Col>
+                                                </Row>
                                             </Col>
                                         </Row>
                                     </Col>
                                 </Row>
-                            </Col>
-                        </Row>
-                    </CardBody>
-                </Card>
+                            </CardBody>
+                        </Card>
+
+                        : null
+                }
 
                 <Card>
                     <CardHeader>All Vans</CardHeader>

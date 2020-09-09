@@ -27,8 +27,23 @@ export default [
         _children: [
             {
                 _tag: 'CSidebarNavItem',
-                name: 'Purchase Order',
-                to: '/purchaseOrderManagment/purchaseOrder',
+                name: 'Purchase Order Create',
+                to: '/purchaseOrderManagment/purchaseOrderCreate',
+            },
+            {
+                _tag: 'CSidebarNavItem',
+                name: 'Purchase Order View',
+                to: '/purchaseOrderManagment/purchaseOrderView',
+            },
+            {
+                _tag: 'CSidebarNavItem',
+                name: 'Purchase Return Create',
+                to: '/purchaseOrderManagment/purchaseReturnCreate',
+            },
+            {
+                _tag: 'CSidebarNavItem',
+                name: 'Purchase Return View',
+                to: '/purchaseOrderManagment/purchaseReturnView',
             },
 
         ],
@@ -41,8 +56,13 @@ export default [
         _children: [
             {
                 _tag: 'CSidebarNavItem',
-                name: 'GRN',
-                to: '/purchaseOrderManagment/grn',
+                name: 'GRN Acceptance',
+                to: '/purchaseOrderManagment/grnAcceptance',
+            },
+            {
+                _tag: 'CSidebarNavItem',
+                name: 'GRN History',
+                to: '/purchaseOrderManagment/grnHistory',
             },
 
         ],
@@ -55,8 +75,13 @@ export default [
         _children: [
             {
                 _tag: 'CSidebarNavItem',
-                name: 'Sales Order',
-                to: '/purchaseOrderManagment/salesOrder',
+                name: 'Sales Order Create',
+                to: '/purchaseOrderManagment/salesOrderCreate',
+            },
+            {
+                _tag: 'CSidebarNavItem',
+                name: 'Sales Order View',
+                to: '/purchaseOrderManagment/salesOrderView',
             },
 
         ],
@@ -69,8 +94,23 @@ export default [
         _children: [
             {
                 _tag: 'CSidebarNavItem',
-                name: 'Sales Invoice',
-                to: '/salesInvoiceManagment/salesInvoice',
+                name: 'Sales Invoice Create',
+                to: '/salesInvoiceManagment/salesInvoiceCreate',
+            },
+            {
+                _tag: 'CSidebarNavItem',
+                name: 'Sales Invoice View',
+                to: '/salesInvoiceManagment/salesInvoiceView',
+            },
+            {
+                _tag: 'CSidebarNavItem',
+                name: 'Sales Return Create',
+                to: '/salesInvoiceManagment/salesReturnCreate',
+            },
+            {
+                _tag: 'CSidebarNavItem',
+                name: 'Sales Return Create',
+                to: '/salesInvoiceManagment/salesReturnView',
             },
 
         ],
@@ -83,9 +123,30 @@ export default [
         _children: [
             {
                 _tag: 'CSidebarNavItem',
-                name: 'Inventory',
-                to: '/inventoryManagment/inventory',
+                name: 'Stock',
+                to: '/inventoryManagment/stock',
             },
+            {
+                _tag: 'CSidebarNavItem',
+                name: 'Warehouse Create',
+                to: '/inventoryManagment/warehouseCreate',
+            },
+            {
+                _tag: 'CSidebarNavItem',
+                name: 'Warehouse Type Create',
+                to: '/inventoryManagment/warehouseTypeCreate',
+            },
+            {
+                _tag: 'CSidebarNavItem',
+                name: 'Stock Adjustment',
+                to: '/inventoryManagment/stockAdjustment',
+            },
+            {
+                _tag: 'CSidebarNavItem',
+                name: 'Stock Transfer',
+                to: '/inventoryManagment/stockTransfer',
+            },
+
 
         ],
     },
@@ -97,8 +158,18 @@ export default [
         _children: [
             {
                 _tag: 'CSidebarNavItem',
-                name: 'Retailer',
-                to: '/retailerManagment/retailer',
+                name: 'Retailer Create',
+                to: '/retailerManagment/retailerCreate',
+            },
+            {
+                _tag: 'CSidebarNavItem',
+                name: 'Retailer View',
+                to: '/retailerManagment/retailerView',
+            },
+            {
+                _tag: 'CSidebarNavItem',
+                name: 'Retailer Transfer',
+                to: '/retailerManagment/retailerTransfer',
             },
 
         ],
@@ -120,13 +191,13 @@ export default [
     {
         _tag: 'CSidebarNavDropdown',
         name: 'Van Management',
-        route: '/notifications',
+        route: '/van',
         icon: 'cil-bell',
         _children: [
             {
                 _tag: 'CSidebarNavItem',
-                name: 'Alerts',
-                to: '/notifications/alerts',
+                name: 'Van Master',
+                to: '/vanManagement/van',
             },
 
         ]

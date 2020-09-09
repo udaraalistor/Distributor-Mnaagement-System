@@ -1,0 +1,41 @@
+/**
+ * Created by WebStorm.
+ * User: athukorala
+ * Date: 7/23/19
+ * Time: 10:02 AM
+ */
+.more-remove {
+  background: #ec2f2f !important;
+  color: #fff!important;
+}
+.more-remove:hover {
+  background: #bd3530 !important;
+  color: #fff!important;
+}
+.more-remove:focus {
+  background: #ec2f2f !important;
+  color: #fff!important;
+}
+
+.more-update {
+  background: #53bd52!important;
+  color: #fff!important;
+}
+.more-update:hover {
+  background: #2ebd1e !important;
+  color: #fff!important;
+}
+.more-update:focus {
+  background: #2ebd1e !important;
+  color: #fff!important;
+}
+
+
+.px-5:hover {
+  background: #2ebd1e !important;
+  color: #fff!important;
+}
+.px-5:focus {
+  background: #2ebd1e !important;
+  color: #fff!important;
+}
